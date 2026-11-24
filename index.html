@@ -1,1 +1,312 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="INCLUSIVE KZ — әр балаға тең мүмкіндік беретін инклюзивті білім беру платформасы.">
+<title>INCLUSIVE KZ — Әр балаға тең мүмкіндік!</title>
+<style>
+:root{
+ --primary:#8B7BC8;--primary-dark:#6F60AA;--blue:#B9C9ED;--cream:#FFF5E9;
+ --peach:#F4BDAA;--white:#FFFFFF;--ink:#29334A;--muted:#687187;
+ --line:#E9E4F0;--surface:#FFFFFF;--soft:#F3EFFB;--shadow:0 12px 35px rgba(65,54,105,.10);
+ --font-scale:1;--radius:22px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:calc(16px * var(--font-scale))}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+body.high-contrast{--cream:#fff;--white:#fff;--surface:#fff;--ink:#111;--muted:#292929;--primary:#49318f;--blue:#dce5ff;--line:#333;--soft:#eee}
+body.easy-font{font-family:Arial,Verdana,sans-serif;letter-spacing:.025em;line-height:1.8}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--peach);outline-offset:3px}
+.skip-link{position:absolute;left:-999px;top:8px;background:#fff;padding:12px;z-index:1000}
+.skip-link:focus{left:8px}
+.container{width:min(1160px,calc(100% - 40px));margin:auto}
+.topbar{background:var(--ink);color:#fff;font-size:.88rem;padding:8px 0}
+.topbar .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{position:sticky;top:0;z-index:50;background:rgba(255,245,233,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(139,123,200,.12)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.04em}
+.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--blue));display:grid;place-items:center;color:white;font-weight:900;box-shadow:0 7px 16px #8b7bc844}
+.navlinks{display:flex;align-items:center;gap:22px;font-size:.93rem;color:var(--muted)}
+.navlinks a:hover{color:var(--primary-dark)}
+.actions{display:flex;align-items:center;gap:9px}
+.btn{border:0;border-radius:14px;padding:11px 17px;font-weight:750;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 18px #8b7bc833}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-soft{background:var(--soft);color:var(--primary-dark)}
+.btn-outline{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.icon-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;color:var(--ink)}
+.menu-toggle{display:none}
+.hero{padding:72px 0 60px;overflow:hidden;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:45px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#eee9fa;color:var(--primary-dark);padding:7px 13px;border-radius:99px;font-weight:750;font-size:.82rem}
+h1{font-size:clamp(2.5rem,5vw,4.7rem);line-height:1.08;letter-spacing:-.055em;margin:19px 0}
+.gradient-text{background:linear-gradient(100deg,var(--primary-dark),#C18DAA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:570px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.hero-note{display:flex;align-items:center;gap:12px;margin-top:25px;color:var(--muted);font-size:.9rem}
+.hero-art{min-height:420px;position:relative;display:grid;place-items:center}
+.art-glow{position:absolute;width:350px;height:350px;background:radial-gradient(circle,#d8cef4 0%,#f4d8cf 55%,transparent 72%);border-radius:50%;filter:blur(8px)}
+.art-card{position:relative;background:rgba(255,255,255,.83);border:1px solid #fff;border-radius:32px;padding:27px;width:min(390px,100%);box-shadow:var(--shadow);transform:rotate(2deg)}
+.art-top{display:flex;justify-content:space-between;align-items:center}
+.art-emoji{font-size:3.5rem}
+.art-orbit{display:flex;justify-content:center;align-items:center;gap:18px;margin:25px 0}
+.orbit-circle{width:110px;height:110px;border-radius:34px;background:linear-gradient(145deg,#b9c9ed,#8b7bc8);display:grid;place-items:center;font-size:3.2rem;box-shadow:inset 0 4px 10px #fff8,0 12px 25px #8b7bc833}
+.mini-card{background:#f7f4fc;border-radius:16px;padding:13px;margin-top:10px}
+.progress{height:9px;background:#e7e1f1;border-radius:99px;overflow:hidden}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--peach));border-radius:99px}
+.float{position:absolute;background:#fff;padding:12px 16px;border-radius:16px;box-shadow:var(--shadow);font-weight:750}
+.float.one{top:45px;right:0}.float.two{bottom:38px;left:0}
+section{padding:66px 0}
+.section-head{text-align:center;max-width:680px;margin:0 auto 34px}
+.section-head h2{font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.15;letter-spacing:-.035em;margin:0 0 12px}
+.section-head p{color:var(--muted);margin:0}
+.grid{display:grid;gap:18px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border:1px solid rgba(139,123,200,.12);border-radius:var(--radius);padding:23px;box-shadow:var(--shadow)}
+.card-icon{width:50px;height:50px;border-radius:16px;background:var(--soft);display:grid;place-items:center;font-size:1.5rem;margin-bottom:15px}
+.card h3{margin:0 0 8px;font-size:1.1rem}
+.card p{margin:0;color:var(--muted);font-size:.94rem}
+.tint-section{background:linear-gradient(135deg,#eeeafb 0%,#fff5e9 80%)}
+.class-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.class-btn{border:1px solid var(--line);background:#fff;border-radius:17px;padding:18px 8px;text-align:center;font-weight:800;color:var(--ink);transition:.2s}
+.class-btn:hover,.class-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-3px)}
+.subject-card{display:flex;align-items:center;gap:13px;padding:16px;border-radius:17px;background:#fff;border:1px solid var(--line);cursor:pointer;text-align:left;width:100%;color:var(--ink)}
+.subject-card:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+.subject-emoji{font-size:1.8rem}
+.workspace{background:#f8f6fc}
+.dashboard{display:grid;grid-template-columns:245px 1fr;gap:20px;align-items:start}
+.sidebar{position:sticky;top:95px}
+.side-link{display:flex;width:100%;padding:12px 14px;border:0;background:transparent;text-align:left;border-radius:12px;color:var(--muted);font-weight:700;gap:10px;margin:3px 0}
+.side-link.active,.side-link:hover{background:var(--soft);color:var(--primary-dark)}
+.dash-main{min-width:0}
+.dash-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.stat{padding:17px}
+.stat strong{font-size:1.7rem;display:block}
+.stat small{color:var(--muted)}
+.panel{display:none}
+.panel.active{display:block}
+.lesson-list{display:grid;gap:12px}
+.lesson{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:16px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.lesson small{display:block;color:var(--muted)}
+.tag{display:inline-block;padding:4px 9px;background:#f0ecfa;color:var(--primary-dark);border-radius:99px;font-size:.78rem;font-weight:750}
+.quiz-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
+.answer-list{display:grid;gap:10px;margin:18px 0}
+.answer{border:1px solid var(--line);background:#fff;text-align:left;padding:13px 15px;border-radius:13px;color:var(--ink)}
+.answer:hover{border-color:var(--primary);background:#f8f6fc}
+.answer.correct{border-color:#7b68b5;background:#eeeafb}
+.answer.wrong{border-color:#d58e79;background:#fff0ea}
+.feedback{padding:13px;border-radius:13px;margin-top:12px;background:#f1edfa}
+.access-toolbar{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:22px 0}
+.access-toolbar button{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 12px;color:var(--ink);font-weight:700}
+.access-toolbar button[aria-pressed="true"]{background:var(--primary);color:#fff}
+.feature-banner{background:var(--ink);color:#fff;border-radius:28px;padding:35px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.feature-banner p{color:#d9dcec;margin-bottom:0}
+footer{background:#252d42;color:#fff;padding:42px 0 22px}
+footer p,footer a{color:#cbd0df}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
+.notice{font-size:.88rem;color:var(--muted);margin-top:12px}
+.modal-backdrop{position:fixed;inset:0;background:#15182b88;z-index:100;display:none;place-items:center;padding:20px}
+.modal-backdrop.open{display:grid}
+.modal{background:#fff;border-radius:24px;padding:27px;width:min(480px,100%);box-shadow:var(--shadow)}
+.modal label{display:block;font-weight:700;margin:12px 0 5px}
+.modal input,.modal select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--ink);color:#fff;padding:13px 18px;border-radius:14px;box-shadow:var(--shadow);z-index:120;display:none}
+.toast.show{display:block}
+.muted{color:var(--muted)}
+.empty{padding:24px;text-align:center;color:var(--muted);background:#fff;border-radius:16px}
+@media(max-width:900px){.navlinks{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);padding:20px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}.navlinks.open{display:flex}.menu-toggle{display:inline-flex}.hero-grid{grid-template-columns:1fr}.hero-art{min-height:360px}.grid-4{grid-template-columns:repeat(2,1fr)}.dashboard{grid-template-columns:1fr}.sidebar{position:static;display:flex;overflow:auto}.side-link{white-space:nowrap;width:auto}.class-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:600px){.container{width:min(100% - 28px,1160px)}.topbar .container{justify-content:center}.nav{height:68px}.navlinks{top:68px}.actions .btn{display:none}.hero{padding:48px 0 35px}.hero-art{min-height:330px}.art-card{padding:19px}.float.one{right:-4px}.float.two{left:-4px}.grid-3,.grid-4{grid-template-columns:1fr}.class-grid{grid-template-columns:repeat(3,1fr)}section{padding:48px 0}.feature-banner{grid-template-columns:1fr;padding:25px}.footer-grid{grid-template-columns:1fr}.lesson{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Негізгі мазмұнға өту</a>
+<div class="topbar"><div class="container"><span>✨ Инклюзивті білім — баршаға ортақ мүмкіндік</span><span>Қазақ тіліндегі оқу платформасы</span></div></div>
+<header>
+ <div class="container nav">
+  <a class="brand" href="#home" aria-label="INCLUSIVE KZ басты бет"><span class="logo">iKZ</span><span>INCLUSIVE KZ</span></a>
+  <nav class="navlinks" id="navlinks" aria-label="Негізгі навигация">
+   <a href="#features">Мүмкіндіктер</a><a href="#subjects">Пәндер</a><a href="#accessibility">Қолжетімділік</a><a href="#dashboard">Оқу кабинеті</a>
+  </nav>
+  <div class="actions"><button class="btn btn-soft" onclick="openLogin()">Кіру</button><button class="btn btn-primary" onclick="goDashboard()">Оқуды бастау</button><button class="icon-btn menu-toggle" onclick="toggleMenu()" aria-label="Мәзірді ашу" aria-expanded="false">☰</button></div>
+ </div>
+</header>
+<main id="main">
+<section class="hero" id="home">
+ <div class="container hero-grid">
+  <div><span class="eyebrow">🌟 Білім алуға әркімнің құқығы бар</span>
+   <h1>Әр балаға — <span class="gradient-text">тең мүмкіндік!</span></h1>
+   <p>INCLUSIVE KZ — әр оқушының жеке ерекшелігі мен оқу қарқынын ескеретін, білімді қолжетімді әрі қызықты ететін цифрлық орта.</p>
+   <div class="hero-buttons"><button class="btn btn-primary" onclick="goDashboard()">Оқуды бастау <span>→</span></button><a class="btn btn-outline" href="#about">Платформа туралы</a></div>
+   <div class="hero-note"><span>💜</span><span>Салыстыру емес — жеке даму мен қолдау маңызды.</span></div>
+  </div>
+  <div class="hero-art" aria-label="Білімді бейнелейтін сәндік иллюстрация">
+   <div class="art-glow"></div><div class="art-card">
+    <div class="art-top"><b>Менің оқу әлемім</b><span class="tag">Жеке қарқын</span></div>
+    <div class="art-orbit"><span class="art-emoji">📚</span><div class="orbit-circle">🎓</div><span class="art-emoji">🧩</span></div>
+    <div class="mini-card"><div style="display:flex;justify-content:space-between"><b>Бүгінгі мақсат</b><b>2 / 3</b></div><div class="progress" style="margin-top:9px"><span style="width:66%"></span></div></div>
+    <div class="mini-card">✨ Әр қадам — жетістік!</div>
+   </div>
+   <div class="float one">🧠 Ойлан · Үйрен · Дамы</div><div class="float two">💜 Сенің қарқының — дұрыс қарқын</div>
+  </div>
+ </div>
+</section>
 
+<section id="features">
+ <div class="container"><div class="section-head"><h2>Білім алудың жаңа мүмкіндіктері</h2><p>Оқу процесін түсінікті, икемді және ынталандыратын құралдар бір платформада.</p></div>
+  <div class="grid grid-3">
+   <article class="card"><div class="card-icon">🧭</div><h3>Жеке оқу бағыты</h3><p>Оқушы өз сыныбы мен пәнін таңдап, тапсырмаларды өз қарқынымен орындайды.</p></article>
+   <article class="card"><div class="card-icon">🧩</div><h3>Интерактивті тапсырмалар</h3><p>Тест, логикалық жаттығу және кезең-кезеңімен орындалатын тапсырмалар.</p></article>
+   <article class="card"><div class="card-icon">♿</div><h3>Қолжетімді интерфейс</h3><p>Қаріпті үлкейту, контраст, дыбыстау және пернетақтамен басқару мүмкіндіктері.</p></article>
+   <article class="card"><div class="card-icon">🎯</div><h3>Бейімделетін деңгей</h3><p>Нәтижеге қарай жеңіл, орташа немесе күрделі тапсырмалар ұсынылады.</p></article>
+   <article class="card"><div class="card-icon">🏅</div><h3>Жеке жетістіктер</h3><p>XP ұпайлары мен марапаттар оқушының жеке ілгерілеуін көрсетеді.</p></article>
+   <article class="card"><div class="card-icon">🤝</div><h3>Мұғалім қолдауы</h3><p>Оқу материалдары мен тапсырмаларды мұғалімге ыңғайлы ұйымдастыруға арналған бөлім.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="tint-section" id="subjects">
+ <div class="container"><div class="section-head"><h2>Өз сыныбыңды таңда</h2><p>1–11 сыныпқа арналған оқу кеңістігі. Сыныпты таңдағаннан кейін пәндер тізімі жаңарады.</p></div>
+  <div class="class-grid" id="classGrid" aria-label="Сыныпты таңдау"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:28px 0 15px"><h3 id="subjectHeading" style="margin:0">1-сынып пәндері</h3><span class="tag">Оқу каталогы · демо мазмұн</span></div>
+  <div class="grid grid-3" id="subjectGrid"></div>
+  <p class="notice">Ескерту: бұл нұсқада пән карточкалары мен үлгі материалдары көрсетілген. Нақты оқу бағдарламасы мен мұғалім жүктеген файлдар кейін дерекқорға қосылады.</p>
+ </div>
+</section>
+
+<section id="accessibility">
+ <div class="container"><div class="section-head"><h2>SMART ACCESSIBILITY</h2><p>Әр адамға ыңғайлы оқу ортасын өз қажеттілігіңе қарай бапта.</p></div>
+  <div class="access-toolbar" role="group" aria-label="Қолжетімділік параметрлері">
+   <button onclick="changeFont(-.1)" aria-label="Қаріпті кішірейту">A−</button><button onclick="changeFont(.1)" aria-label="Қаріпті үлкейту">A+</button>
+   <button id="contrastBtn" onclick="toggleContrast()" aria-pressed="false">◐ Жоғары контраст</button>
+   <button id="fontBtn" onclick="toggleEasyFont()" aria-pressed="false">Ә Оқуға жеңіл қаріп</button>
+   <button onclick="speakPage()">🔊 Мәтінді дыбыстау</button><button onclick="stopSpeak()">Дыбыстауды тоқтату</button>
+  </div>
+  <div class="grid grid-4">
+   <article class="card"><div class="card-icon">👁️</div><h3>Көру ерекшеліктері</h3><p>Қаріп өлшемін өзгерту, контраст режимі және суреттерге мәтіндік сипаттама.</p></article>
+   <article class="card"><div class="card-icon">👂</div><h3>Есту ерекшеліктері</h3><p>Бейнесабақтарға субтитр және аудио ақпараттың мәтіндік баламасы қарастырылады.</p></article>
+   <article class="card"><div class="card-icon">🧠</div><h3>Ақпаратты қабылдау</h3><p>Қысқа нұсқаулық, шағын қадамдар, қайталау және түсінікті кері байланыс.</p></article>
+   <article class="card"><div class="card-icon">⌨️</div><h3>Қозғалыс ерекшеліктері</h3><p>Пернетақта навигациясы, анық фокус және басуға ыңғайлы ірі батырмалар.</p></article>
+  </div>
+  <p class="notice">Дыбыстау функциясы браузердің Speech Synthesis қолдауына тәуелді. Бұл құралдар интерфейсті жеңілдетеді, бірақ толық кәсіби қолжетімділік аудитін алмастырмайды.</p>
+ </div>
+</section>
+
+<section class="workspace" id="dashboard">
+ <div class="container"><div class="section-head"><h2>Оқушының оқу кабинеті</h2><p>Оқу барысын бақыла, тапсырма орында және өз жетістігіңді белгіле.</p></div>
+  <div class="dashboard">
+   <aside class="card sidebar" aria-label="Оқу кабинеті мәзірі">
+    <div style="display:flex;align-items:center;gap:12px;padding:7px 10px 16px"><div class="logo">👩‍🎓</div><div><b id="studentName">Қонақ оқушы</b><div class="muted" style="font-size:.8rem">Оқушы кабинеті</div></div></div>
+    <button class="side-link active" data-panel="overview">🏠 Шолу</button>
+    <button class="side-link" data-panel="materials">📚 Материалдар</button>
+    <button class="side-link" data-panel="practice">🧩 Тапсырмалар</button>
+    <button class="side-link" data-panel="achievements">🏅 Жетістіктер</button>
+    <button class="side-link" data-panel="teacher">👩‍🏫 Мұғалім бөлімі</button>
+    <button class="side-link" data-panel="admin">⚙️ Әкімші бөлімі</button>
+   </aside>
+   <div class="dash-main">
+    <div class="dash-top"><div><h3 style="margin:0">Сәлем! Оқуға дайынсың ба? 💜</h3><span class="muted">Бүгінгі оқу кеңістігің</span></div><button class="btn btn-soft" onclick="openLogin()">Профильді баптау</button></div>
+    <div class="panel active" id="panel-overview">
+     <div class="grid grid-3">
+      <div class="card stat"><small>Жиналған XP</small><strong id="xpValue">0 ⭐</strong><span class="muted">Жеке ұпайың</span></div>
+      <div class="card stat"><small>Орындалған тапсырма</small><strong id="doneValue">0</strong><span class="muted">Осы құрылғыда</span></div>
+      <div class="card stat"><small>Таңдалған сынып</small><strong id="gradeValue">1</strong><span class="muted">Сынып</span></div>
+     </div>
+     <div class="card" style="margin-top:18px"><h3>Бүгінгі оқу жоспары</h3><div class="lesson-list">
+      <div class="lesson"><div><b>📘 Жаңа тақырыпты оқу</b><small>Информатика · 10 минут</small></div><span class="tag">Ұсыныс</span></div>
+      <div class="lesson"><div><b>🧩 Бір тапсырма орындау</b><small>Білімді бекіту · 5 минут</small></div><span class="tag">Ұсыныс</span></div>
+      <div class="lesson"><div><b>🔁 Қайталау</b><small>Өткен тақырыпты еске түсіру</small></div><span class="tag">Ұсыныс</span></div>
+     </div></div>
+    </div>
+    <div class="panel" id="panel-materials">
+     <div class="card"><h3>Оқу материалдары</h3><p class="muted">Пәнді таңдап, үлгі оқу материалын аш.</p><div class="grid grid-3" id="materialSubjects" style="margin-top:15px"></div><div id="materialDetail" style="margin-top:18px"></div></div>
+    </div>
+    <div class="panel" id="panel-practice">
+     <div class="quiz-box"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span class="tag" id="levelTag">Beginner · жеңіл</span><span class="muted" id="questionCount">1 / 3</span></div>
+      <h3 id="questionText" style="margin-top:18px">Компьютердің ақпаратты өңдейтін негізгі құрылғысы қайсы?</h3>
+      <div class="answer-list" id="answerList"></div><div id="feedback" aria-live="polite"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px"><button class="btn btn-soft" onclick="showHint()">💡 Көмек</button><button class="btn btn-primary" id="nextQuestion" onclick="nextQuestion()" disabled>Келесі тапсырма →</button><button class="btn btn-outline" onclick="resetQuiz()">Қайта бастау</button></div>
+     </div>
+    </div>
+    <div class="panel" id="panel-achievements">
+     <div class="card"><h3>Жетістіктерің</h3><p class="muted">Марапаттар жеке оқу әрекетіңе қарай ашылады.</p><div class="grid grid-3" style="margin-top:18px" id="badgeGrid"></div></div>
+    </div>
+    <div class="panel" id="panel-teacher">
+     <div class="card"><h3>Мұғалім кабинеті — демонстрациялық көрініс</h3><p class="muted">Бұл бөлім интерфейс үлгісі ретінде берілген. Нақты оқушылар тізімі мен файлдарды басқару үшін мұғалім авторизациясы және серверлік дерекқор қажет.</p>
+      <div class="grid grid-3" style="margin-top:18px"><div class="card"><div class="card-icon">👥</div><b>Оқушылар тізімі</b><p>Дерекқор қосылғанда көрсетіледі.</p></div><div class="card"><div class="card-icon">📝</div><b>Тапсырма құрастыру</b><p>Тапсырма редакторы келесі кезеңде қосылады.</p></div><div class="card"><div class="card-icon">📊</div><b>Нәтижелерді талдау</b><p>Нақты оқу деректері қажет.</p></div></div>
+     </div>
+    </div>
+    <div class="panel" id="panel-admin">
+     <div class="card"><h3>Әкімшілік панель — демонстрациялық көрініс</h3><p class="muted">Пайдаланушыларды, рөлдерді және контентті басқару серверлік авторизациясыз қолжетімді етілмейді.</p><div class="lesson-list" style="margin-top:15px"><div class="lesson"><b>Пайдаланушылар мен рөлдер</b><span class="tag">Backend қажет</span></div><div class="lesson"><b>Сыныптар мен пәндер</b><span class="tag">Backend қажет</span></div><div class="lesson"><b>Материалдар базасы</b><span class="tag">Backend қажет</span></div><div class="lesson"><b>Платформа статистикасы</b><span class="tag">Backend қажет</span></div></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="about"><div class="container"><div class="feature-banner"><div><h2 style="margin:0 0 8px">Білім — әр балаға ортақ мүмкіндік</h2><p>INCLUSIVE KZ оқушының қабілетін, қажеттілігін және жеке оқу қарқынын құрметтейтін орта қалыптастыруға бағытталған.</p></div><a class="btn" style="background:#fff;color:var(--primary-dark)" href="#dashboard">Платформаны көру →</a></div></div></section>
+</main>
+<footer><div class="container"><div class="footer-grid"><div><div class="brand"><span class="logo">iKZ</span><span>INCLUSIVE KZ</span></div><p>Әр балаға — тең мүмкіндік! Инклюзивті білім беруге арналған цифрлық платформа.</p></div><div><b>Бөлімдер</b><p><a href="#features">Мүмкіндіктер</a></p><p><a href="#subjects">Пәндер</a></p><p><a href="#accessibility">Қолжетімділік</a></p></div><div><b>Оқу кеңістігі</b><p><a href="#dashboard">Оқушы кабинеті</a></p><p><a href="#about">Жоба туралы</a></p></div></div><hr style="border:0;border-top:1px solid #41495d;margin:25px 0 15px"><small>© 2026 INCLUSIVE KZ. Оқу мақсатындағы демонстрациялық нұсқа.</small></div></footer>
+
+<div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+ <div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 id="loginTitle">Оқушы профилі</h3><button class="icon-btn" onclick="closeLogin()" aria-label="Терезені жабу">✕</button></div>
+  <p class="muted">Бұл демонстрациялық профиль. Мәлімет осы браузерде ғана сақталады.</p>
+  <label for="nameInput">Есімің</label><input id="nameInput" maxlength="30" placeholder="Есіміңді жаз">
+  <label for="gradeSelect">Сыныбың</label><select id="gradeSelect"></select>
+  <div style="display:flex;gap:10px;margin-top:20px"><button class="btn btn-primary" onclick="saveProfile()">Сақтау</button><button class="btn btn-outline" onclick="closeLogin()">Жабу</button></div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const subjects=[["Математика","➗","Сандар, есептер және логикалық ойлау."],["Информатика","💻","Цифрлық сауаттылық және алгоритмдер."],["Қазақ тілі","📖","Тілдік дағдылар мен мәтінмен жұмыс."],["Орыс тілі","🔤","Сөздік қор және тілдік жаттығулар."],["Жаратылыстану","🌍","Қоршаған әлемді зерттеу."]];
+const lessons={
+ "Математика":["Сандарды тану және салыстыру","Қосу мен азайту","Геометриялық пішіндер"],
+ "Информатика":["Ақпарат және компьютер","Компьютер құрылғылары","Алгоритм ұғымы"],
+ "Қазақ тілі":["Әріп пен дыбыс","Сөз және сөйлем","Мәтінді түсіну"],
+ "Орыс тілі":["Алфавит","Сөз таптары","Сөйлем құрау"],
+ "Жаратылыстану":["Табиғат әлемі","Өсімдіктер мен жануарлар","Ауа райы"]
+};
+let grade=Number(localStorage.getItem("ikz_grade")||1),xp=Number(localStorage.getItem("ikz_xp")||0),done=Number(localStorage.getItem("ikz_done")||0),student=localStorage.getItem("ikz_name")||"Қонақ оқушы";
+let fontScale=1,contrast=false,easyFont=false,qIndex=0,answered=false,level=0;
+const questions=[
+ {level:"Beginner · жеңіл",q:"Компьютердің ақпаратты өңдейтін негізгі құрылғысы қайсы?",a:["Монитор","Процессор","Пернетақта"],c:1,h:"Ол компьютердің есептеу жұмыстарын орындайды.",why:"Процессор командаларды орындайды және деректерді өңдейді."},
+ {level:"Intermediate · орташа",q:"Алгоритм дегеніміз не?",a:["Мәселені шешуге арналған нақты қадамдар тізбегі","Компьютердің сыртқы бөлігі","Тек суреттер жиынтығы"],c:0,h:"Алгоритм әрекеттердің орындалу ретін көрсетеді.",why:"Алгоритм — белгілі бір мақсатқа жету үшін орындалатын реттелген командалар."},
+ {level:"Advanced · күрделі",q:"Егер x = 4 болса, x * 3 + 2 өрнегінің мәні нешеге тең?",a:["12","14","18"],c:1,h:"Алдымен көбейтуді орында, содан кейін 2 қос.",why:"4 × 3 + 2 = 12 + 2 = 14."}
+];
+function toast(msg){let t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+function toggleMenu(){let n=document.getElementById("navlinks");n.classList.toggle("open");document.querySelector(".menu-toggle").setAttribute("aria-expanded",n.classList.contains("open"))}
+function goDashboard(){document.getElementById("dashboard").scrollIntoView({behavior:"smooth"});setPanel("overview")}
+function setPanel(name){document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+name));document.querySelectorAll(".side-link").forEach(b=>b.classList.toggle("active",b.dataset.panel===name))}
+document.querySelectorAll(".side-link").forEach(b=>b.addEventListener("click",()=>setPanel(b.dataset.panel)));
+function renderClasses(){let g=document.getElementById("classGrid");g.innerHTML="";for(let i=1;i<=11;i++){let b=document.createElement("button");b.className="class-btn"+(grade===i?" active":"");b.textContent=i+"-сынып";b.setAttribute("aria-pressed",grade===i);b.onclick=()=>selectGrade(i);g.appendChild(b)}}
+function selectGrade(i){grade=i;localStorage.setItem("ikz_grade",grade);renderClasses();renderSubjects();updateStats();document.getElementById("gradeSelect").value=grade;toast(grade+"-сынып таңдалды")}
+function renderSubjects(){document.getElementById("subjectHeading").textContent=grade+"-сынып пәндері";document.getElementById("subjectGrid").innerHTML=subjects.map(s=>`<button class="subject-card" onclick="openMaterial('${s[0]}')"><span class="subject-emoji">${s[1]}</span><span><b>${s[0]}</b><small class="muted" style="display:block">${s[2]}</small></span><span style="margin-left:auto">→</span></button>`).join("");document.getElementById("materialSubjects").innerHTML=subjects.map(s=>`<button class="subject-card" onclick="openMaterial('${s[0]}')"><span class="subject-emoji">${s[1]}</span><b>${s[0]}</b></button>`).join("")}
+function openMaterial(subject){setPanel("materials");let list=lessons[subject]||["Кіріспе тақырып","Негізгі түсініктер","Қайталау тапсырмасы"];document.getElementById("materialDetail").innerHTML=`<h3>${grade}-сынып · ${subject}</h3><div class="lesson-list">${list.map((l,i)=>`<div class="lesson"><div><b>${i+1}. ${l}</b><small>Қысқаша түсіндірме · үлгі материал</small></div><button class="btn btn-soft" onclick="showLesson('${subject}',${i})">Ашу</button></div>`).join("")}</div>`;document.getElementById("panel-materials").scrollIntoView({behavior:"smooth",block:"center"})}
+function showLesson(subject,i){let title=lessons[subject][i];document.getElementById("materialDetail").innerHTML=`<div class="card" style="background:#f8f6fc"><span class="tag">Үлгі сабақ</span><h3>${title}</h3><p>${subject} пәні бойынша бұл — материал құрылымын көрсететін қысқаша демо мәтін. Толық нұсқада мұғалім теорияны, суретті түсіндірмені, бейнесабақты және тапсырмаларды осы жерге орналастырады.</p><h4>Есте сақта</h4><p>Тақырыпты асықпай оқы. Маңызды ақпаратты қайталап, түсінбеген жеріңді қайта қарауға болады.</p><button class="btn btn-outline" onclick="openMaterial('${subject}')">← Материалдар тізіміне</button></div>`}
+function updateStats(){document.getElementById("xpValue").textContent=xp+" ⭐";document.getElementById("doneValue").textContent=done;document.getElementById("gradeValue").textContent=grade;document.getElementById("studentName").textContent=student;renderBadges()}
+function renderBadges(){let badges=[["🌱","Алғашқы қадам",done>=1],["📚","Білім іздеуші",done>=2],["🏆","Табанды оқушы",done>=3]];document.getElementById("badgeGrid").innerHTML=badges.map(b=>`<div class="card" style="text-align:center;opacity:${b[2]?1:.48}"><div style="font-size:2rem">${b[0]}</div><b>${b[1]}</b><p>${b[2]?"Ашылды":"Тапсырма орындағанда ашылады"}</p></div>`).join("")}
+function renderQuestion(){let q=questions[qIndex];document.getElementById("levelTag").textContent=q.level;document.getElementById("questionCount").textContent=(qIndex+1)+" / "+questions.length;document.getElementById("questionText").textContent=q.q;document.getElementById("feedback").innerHTML="";document.getElementById("nextQuestion").disabled=true;document.getElementById("answerList").innerHTML=q.a.map((a,i)=>`<button class="answer" onclick="chooseAnswer(${i})">${String.fromCharCode(65+i)}. ${a}</button>`).join("");answered=false}
+function chooseAnswer(i){if(answered)return;answered=true;let q=questions[qIndex],buttons=[...document.querySelectorAll(".answer")];buttons.forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");else if(j===i)b.classList.add("wrong")});let ok=i===q.c;if(ok){xp+=10;done++;localStorage.setItem("ikz_xp",xp);localStorage.setItem("ikz_done",done);document.getElementById("feedback").innerHTML="<div class='feedback'>🎉 Дұрыс жауап! "+q.why+" <b>+10 XP</b></div>"}else{document.getElementById("feedback").innerHTML="<div class='feedback'>Жақсы талпыныс! Дұрыс жауап: "+q.a[q.c]+". "+q.why+"</div>"}document.getElementById("nextQuestion").disabled=false;updateStats()}
+function showHint(){document.getElementById("feedback").innerHTML="<div class='feedback'>💡 "+questions[qIndex].h+"</div>"}
+function nextQuestion(){if(!answered)return;if(qIndex<questions.length-1){qIndex++;renderQuestion()}else{document.getElementById("questionText").textContent="Жарайсың! Бұл жаттығуды аяқтадың.";document.getElementById("answerList").innerHTML="<p>Өз прогресіңді шолудан көре аласың. Қайталап орындауға болады.</p>";document.getElementById("feedback").innerHTML="<div class='feedback'>Оқу жолындағы әр қадамың маңызды! 💜</div>";document.getElementById("nextQuestion").disabled=true}}
+function resetQuiz(){qIndex=0;renderQuestion()}
+function changeFont(v){fontScale=Math.min(1.4,Math.max(.85,fontScale+v));document.documentElement.style.setProperty("--font-scale",fontScale);toast("Қаріп өлшемі өзгертілді")}
+function toggleContrast(){contrast=!contrast;document.body.classList.toggle("high-contrast",contrast);document.getElementById("contrastBtn").setAttribute("aria-pressed",contrast)}
+function toggleEasyFont(){easyFont=!easyFont;document.body.classList.toggle("easy-font",easyFont);document.getElementById("fontBtn").setAttribute("aria-pressed",easyFont)}
+function speakPage(){if(!("speechSynthesis"in window)){toast("Бұл браузерде дыбыстау қолжетімсіз");return}stopSpeak();let text=document.querySelector("main").innerText;let u=new SpeechSynthesisUtterance(text);u.lang="kk-KZ";u.rate=.9;speechSynthesis.speak(u)}
+function stopSpeak(){if("speechSynthesis"in window)speechSynthesis.cancel()}
+function openLogin(){document.getElementById("nameInput").value=student==="Қонақ оқушы"?"":student;document.getElementById("gradeSelect").value=grade;document.getElementById("loginModal").classList.add("open");document.getElementById("nameInput").focus()}
+function closeLogin(){document.getElementById("loginModal").classList.remove("open")}
+function saveProfile(){let n=document.getElementById("nameInput").value.trim();student=n||"Қонақ оқушы";grade=Number(document.getElementById("gradeSelect").value);localStorage.setItem("ikz_name",student);localStorage.setItem("ikz_grade",grade);renderClasses();renderSubjects();updateStats();closeLogin();toast("Профиль осы браузерде сақталды")}
+document.getElementById("loginModal").addEventListener("click",e=>{if(e.target.id==="loginModal")closeLogin()});
+for(let i=1;i<=11;i++){let o=document.createElement("option");o.value=i;o.textContent=i+"-сынып";document.getElementById("gradeSelect").appendChild(o)}
+renderClasses();renderSubjects();updateStats();renderQuestion();
+</script>
+</body>
+</html>
